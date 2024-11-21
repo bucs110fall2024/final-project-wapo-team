@@ -1,7 +1,7 @@
 
 :warning: Everything between << >> needs to be replaced (remove << >> after replacing)
 
-# << Project Title >>
+# Escape-o-pus
 ## CS110 Final Project  Fall Semester, 2024
 
 ## Team Members
@@ -12,7 +12,7 @@ Matthew Simmons
 
 ## Project Description
 
-<< Give an overview of your project >>
+A little octopus guy will make his way around a maze/jail collecting flowers for his wife. After he has collected all the flowers he will have to escape the maze without being cought by the warden of the jail who is a shark. After he escapes the maze he will be greeted by his wife and a you win screen. 
 
 ***    
 
@@ -30,11 +30,11 @@ Matthew Simmons
 
 ### Features
 
-1. << Feature 1 >>
-2. << Feature 2 >>
-3. << Feature 3 >>
-4. << Feature 4 >>
-5. << Feature 5 >>
+1. start menu
+2. moveable octopus
+3. walls that collide with the octopus
+4. flower objects that are counted and disappear when touched by the octopus
+5. gameover screen
 
 ### Classes
 
