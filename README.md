@@ -42,8 +42,76 @@ A little octopus guy will make his way around a maze/jail collecting flowers for
 
 ## ATP
 
-| Step                 |Procedure             |Expected Results                   |
-|----------------------|:--------------------:|----------------------------------:|
-|  1                   | Run Counter Program  |GUI window appears with count = 0  |
-|  2                   | click count button   | display changes to count = 1      |
-etc...
+Test Case 1: Start Menu
+Description: Verify that the start menu works as expected
+1. Start the game
+2. Verify that the start menu dissapears from the screen
+Expected Outcome: Start menu is closed and game screen is visible
+
+Test Case 2: Player Movement
+Description: Verify that the player can move in the four arrow key directions
+1. Start the game
+2. Press the left arrow key
+3. Verify that the player moves left
+4. Press the right arrow key
+5. Verify that the player moves right
+6. Press the up arrow key
+7. Verify that the player moves up
+8. Press the down arrow key
+9. Verify that the player moves down
+Expected Outcome: The player moves left, right, up, and down
+
+Test Case 3: Collision Detection
+Description: Ensure that the collisions between the player and the walls are correctly detected
+1. Start the game
+2. Move the player in the direction of a wall
+3. Verify that the player does not move
+Expected Outcome: The player should not move from its position
+
+Test Case 4: Flower Pickup
+Description: Verify that the player can pick up the flowers around the game map
+1. Start the game
+2. Move the player into a flower
+3. Verify that the flower dissapears
+Expected Outcome: The player will move into the same position as the flower and the flower will disappear
+
+Test Case 5: Flower Count
+Description: Verify that when a flower is picked up the flower count is increased by one
+1. Start the game
+2. Move the player into a flower
+3. Verify that the flower count increased by one
+Expected Outcome: Flower count will increase by one
+
+Test Case 6: Game over condition
+Description: Verify that if the timer runs out the game ends
+1. Start the game
+2. Wait for the timer to run out
+3. Verify that the game over screen appears
+4. Verify that the game returns to the menu
+Expected Outcome: The game should display a game over message and return to the main menu
+
+Test Case 7: Win condition
+Description: Verify that if the Plaer escapes the maze the game ends and a you win screen is displayed
+1. Start the game
+2. Move the player to the exit of the maze and exit
+3. Verify that the game won screen apears
+4. Verify that the game returns to the menu
+Expected Outcome: The game should display a game won message and return to the main menu
+
+Test Case 8: High Score 
+Description: verify that the high score is displayed everytime the game ends, and changes when the player acheives a score higher than the current high score, to that new score
+1. Start the game
+2. Move the player to the exit of the maze and exit, but avoid as many flowers as possible
+3. Verify that the game ends and the score acheived is displayed along with the current high score
+4. Return to the menu
+5. Start the game
+6. Move the player to the exit of the maze and exit, while collecting as many flowers as possible
+7. Verify that the game ends and the score acheived is displayed along with the new high score
+Expected Outcome: The score and high score are displayed and change when necessary
+
+Test Case 9: Menu Navigation
+Description: Test the navigation through the main menu
+1. Start the game
+2. Navigate through the menu (start game, quit)
+3. Verify that each option is selectable and leads to the expected action
+Expected Outcome: The main menu allows the player to navigate through all the options and select them
