@@ -9,7 +9,9 @@ class Controller:
   def __init__(self):
     #setup pygame data
       pygame.init()
-      
+      CELL_SIZE = 20
+      WIDTH = 21
+      HEIGHT = 21
       
       
       self.screen = pygame.display.set_mode((WIDTH * CELL_SIZE, HEIGHT * CELL_SIZE))
@@ -50,9 +52,7 @@ class Controller:
             
   def gameloop(self):
       #event loop
-      CELL_SIZE = 20
-      WIDTH = 21
-      HEIGHT = 21
+      
       clock = pygame.time.Clock()
       maze = Maze(WIDTH, HEIGHT, CELL_SIZE)
       
