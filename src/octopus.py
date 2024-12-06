@@ -1,7 +1,7 @@
 import pygame
 
 class Octopus(pygame.sprite.Sprite):
-    def __init__(self, x, y, img_file, score = 0):
+    def __init__(self, x, y, img_file = "assets/octopus.jpg", score = 0):
         '''
         initializes the player character/Octopus
         args:

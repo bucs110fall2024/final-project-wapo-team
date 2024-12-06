@@ -1,33 +1,29 @@
-import Flower
-import Octopus
-import Maze 
+from src.flower import Flower
+from src.octopus import Octopus
+from src.maze import Maze
 import pygame 
 import pygame_menu 
 
 class Controller:
   
-  def __init__(self):
+  def __init__(self,width = 600, height = 450, tiles = 50, state = "START" ):
     #setup pygame data
-      pygame.init()
-      CELL_SIZE = 20
-      WIDTH = 21
-      HEIGHT = 21
+      self.width = width
+      self.height = height
+      self.tiles = tiles
+      self.screen = pygame.display.set_mode(self.width, self.height)
       
-      
-      self.screen = pygame.display.set_mode((WIDTH * CELL_SIZE, HEIGHT * CELL_SIZE))
-      self.width, self.height = pygame.display.get_window_size()
-      
-      self.state == "START"
+      self.state = state 
       
   def mainloop(self):
     #select state loop
       while True:
             if self.state == "START":
-                self.startloop()
+                self.menuloop()
             elif self.state == "GAME":
                 self.gameloop()
             elif self.state =="END":
-                self.endloop()
+                self.gameoverloop()
   
   
   def menuloop(self):
@@ -36,11 +32,7 @@ class Controller:
         
       self.menu.add.label("Click anywhere to start the program", max_char=-1, font_size=14)
         
-      self.menu.add.button(
-            'Start', 
-            self.start_game, 
-            align=pygame_menu.locals.ALIGN_CENTER
-        )
+      self.menu.add.button('Start', self.menuloop)
         
       while self.state == "START":
           for event in pygame.event.get():
@@ -54,13 +46,17 @@ class Controller:
       #event loop
       
       clock = pygame.time.Clock()
-      maze = Maze(WIDTH, HEIGHT, CELL_SIZE)
+      self.screen.fill("blue")
+      maze = Maze(self.width, self.height, self.tiles)
       
       while self.state == "GAME":
         for event in pygame.event.get():
           if event.type == pygame.quit():
             self.state == "END"
-        
+          
+        pygame.display.flip()
+        clock.tick(30)
+      
       #update data
         keys = pygame.key.get_pressed()
         if keys[pygame.K_UP]:

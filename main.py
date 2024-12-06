@@ -1,5 +1,8 @@
 import pygame
-import Controller
+from src.controller import Controller
+from src.octopus import Octopus
+from src.flower import Flower
+from src.maze import Maze
 
 def main():
     pygame.init()

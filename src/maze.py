@@ -1,51 +1,46 @@
-import pygame
+import pygame 
 import random
 
 class Maze:
-    def __init__(self, width, height, cell_size):
+    def __init__(self, width, height, tiles):
         self.width = width
         self.height = height
-        self.cell_size = cell_size
-        self.grid = self.generate_maze(width, height)
-        self.player_x, self.player_y = 1, 1  # Starting position
-
-    def generate_maze(self, width, height):
-        '''
-        creates a maze using a DFS algorithm 
-        args: 
-            width - the width of the entire maze 
-            height - the height of the entire maze
-        returns: maze object
-        '''
-        maze = [[1] * width for _ in range(height)]
-
-        def path(x, y):
-            '''
-            creates a path throught the maze using random number generation
-            args:
-                x - the current x position when creating a path
-                y - the current y position when creating a path
-            returns: none
-            '''
-            maze[y][x] = 0
-            directions = [(0, 2), (0, -2), (2, 0), (-2, 0)]
-            random.shuffle(directions)
-            for dx, dy in directions:
-                nx, ny = x + dx, y + dy
-                if 0 < nx < width - 1 and 0 < ny < height - 1 and maze[ny][nx] == 1:
-                    maze[y + dy // 2][x + dx // 2] = 0
-                    path(nx, ny)
-
-        path(1, 1)
-        return maze
+        self.tiles = tiles
+        self.colmns = width / tiles
+        self.rows = height / tiles
     
-    def draw(self, screen):
-        '''
-        draws the maze
-        args: screen - the pygame surface created in the main loop
-        returns: none
-        '''
-        for y, row in enumerate(self.grid):
-            for x, cell in enumerate(row):
-                color = (255, 255, 255) if cell == 0 else (0, 0, 0)
-                pygame.draw.rect(screen, color,  (x * self.cell_size, y * self.cell_size, self.cell_size, self.cell_size))
+    def cell(self, x, y):
+        self.x = x 
+        self.y = y
+        self.walls = {'top':True,
+                      'right':True,
+                      'bottom':True,
+                      'left':True}
+        self.visited = False
+        pygame.display.flip()
+        pygame.time.Clock(30)
+    def draw(self):
+        x =self.x * TILE            
+        y = self.y * TILE 
+        if self.visited:
+          pygame.draw.rect(self.screen, "black", (x, y, TILE, TILE))
+        if self.walls['top']:                
+            pygame.draw.line(self.screen, "white", (x, y), (x + TILE, y), 3)
+        if self.walls['right']:
+            pygame.draw.line(self.screen, "white", (x+ TILE, y), (x + TILE, y + TILE), 3)
+        if self.walls['bottom']:
+            pygame.draw.line(self.screen, "white", (x +TILE, y + TILE), (x, y + TILE), 3)
+        if self.walls['left']:
+            pygame.draw.line(self.screen, "white", (x, y + TILE), (x, y), 3)
+
+        self.grid_cells = [Maze.cell(col, row)
+                      for row in range(self.rows)
+                      for col in range(self.colmns)]
+        self.current_cell = self.grid_cells[0]
+        self.stack = []
+            
+    def draw_current_cell(self):
+        x = self.x * TILE
+        y = self.y * TILE 
+        pygame.draw.rect(self.screen, "red", (x+2, y+2, TILE - 2, TILE - 2))
+        

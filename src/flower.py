@@ -1,7 +1,7 @@
 import pygame
 
 class Flower(pygame.sprite.Sprite):
-    def __init__(self, x, y, img_file):
+    def __init__(self, x, y, img_file = "assets/flower.jpg"):
         '''
         initializes a flower object
         args: 
