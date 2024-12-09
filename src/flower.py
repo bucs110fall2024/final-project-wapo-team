@@ -1,7 +1,7 @@
 import pygame
 
 class Flower(pygame.sprite.Sprite):
-    def __init__(self, x, y, img_file = "assets/flower.jpg"):
+    def __init__(self, x, y, img = "assets/flower.png"):
         '''
         initializes a flower object
         args: 
@@ -13,8 +13,7 @@ class Flower(pygame.sprite.Sprite):
         self.x = x
         self.y = y
         
-        self.image = pygame.image.load(img_file)
-        self.image = pygame.transform.scale(self.image, (50, 50))
-       
+        self.image = pygame.image.load(img)
+        
         self.rect = self.image.get_rect()
         self.rect.topleft = (x, y)

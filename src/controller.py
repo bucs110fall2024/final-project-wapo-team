@@ -6,13 +6,29 @@ import pygame_menu
 
 class Controller:
   
-  def __init__(self,width = 600, height = 450, tiles = 50, state = "START" ):
+  def __init__(self, WIDTH = 800, HEIGHT = 600, TILE_SIZE = 50, row = 1, col = 1, state = "START" ):
     #setup pygame data
-      self.width = width
-      self.height = height
-      self.tiles = tiles
-      self.screen = pygame.display.set_mode(self.width, self.height)
+      self.WIDTH = WIDTH
+      self.HEIGHT = HEIGHT
+      self.TILE_SIZE = TILE_SIZE
+      self.row = row
+      self.col = col
+      self.layout = [[1, 1, 1, 1, 1, 1, 1, 1],
+                     [1, 0, 0, 0, 1 ,0, 0, 1],
+                     [1, 0, 1, 0, 1, 0, 1, 1],
+                     [1, 0, 1, 0, 0, 0, 0, 1],
+                     [1, 0, 1, 1, 1, 1, 0, 1],
+                     [1, 0, 0, 0, 0, 1, 0, 1],
+                     [1, 1, 1, 1, 0, 1, 0, 1],
+                     [1, 1, 1, 1, 0, 0, 0, 1],
+                     [1, 1, 1, 1, 1, 1, 1, 1],
+            ]
+      self.maze = Maze()
+      self.TILE_SIZE = 50
+      self.exit = (7, 6)
       
+      self.screen = pygame.display.set_mode((self.WIDTH, self.HEIGHT))
+      pygame.display.set_caption("Escap-o-pus")
       self.state = state 
       
   def mainloop(self):
@@ -28,7 +44,7 @@ class Controller:
   
   def menuloop(self):
     
-      self.menu = pygame_menu.Menu("Start Screen", self.width-20, self.height/2)
+      self.menu = pygame_menu.Menu("Start Screen", self.WIDTH-20, self.HEIGHT/2)
         
       self.menu.add.label("Click anywhere to start the program", max_char=-1, font_size=14)
         
@@ -45,41 +61,38 @@ class Controller:
   def gameloop(self):
       #event loop
       
-      clock = pygame.time.Clock()
-      self.screen.fill("blue")
-      maze = Maze(self.width, self.height, self.tiles)
-      
       while self.state == "GAME":
+        maze = Maze()
+        Octopus(maze)
         for event in pygame.event.get():
-          if event.type == pygame.quit():
+          if event.type == pygame.QUIT:
             self.state == "END"
+          elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_UP:
+                    Octopus.move(self, 0, -1)
+                elif event.key == pygame.K_DOWN:
+                    Octopus.move(self, 0, 1)
+                elif event.key == pygame.K_LEFT:
+                    Octopus.move(self, -1, 0)
+                elif event.key == pygame.K_RIGHT:
+                    Octopus.move(self, 1, 0)
+          if Octopus.has_reached_exit(self):
+              self.state == "END"
           
-        pygame.display.flip()
-        clock.tick(30)
-      
-      #update data
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_UP]:
-          Octopus.move_up()
-        if keys[pygame.K_DOWN]:
-          Octopus.move_down()
-        if keys[pygame.K_LEFT]:
-          Octopus.move_left()
-        if keys[pygame.K_RIGHT]:
-          Octopus.move_right()
         
       #redraw
-        self.screen.fill(0,0,0)
-        maze.draw(self.screen)
+        self.screen.fill("white")
+        Maze.draw(self, self.screen)
+        Octopus.draw(self, self.screen)
         pygame.display.flip()
-        clock.tick(30)
+        pygame.time.Clock().tick(30)
         
   def gameoverloop(self):
       font_obj = pygame.font.SysFont(None, 48)
       msg = font_obj.render("You win! You may quit any time by closing the program", True, "yellow")
         
       while self.state == "END":
-
+        
         for event in pygame.event.get():
           if event.type == pygame.QUIT:
             pygame.quit()

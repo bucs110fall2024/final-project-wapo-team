@@ -1,62 +1,36 @@
 import pygame
+from src.maze import Maze
+import sys
+
 
 class Octopus(pygame.sprite.Sprite):
-    def __init__(self, x, y, img_file = "assets/octopus.jpg", score = 0):
+    def __init__(self, maze, img = "assets/octopus.png", score = 0):
         '''
         initializes the player character/Octopus
         args:
             x - initial x coordinate
             y - initial y coordinate
-            img_file - pathway to image
+            img - pathway to image
         '''
         super().__init__()
+
+        self.row = 1
+        self.col = 1
+        self.maze = maze
         
-        self.x = x
-        self.y = y
-        self.score = score
-        
-        self.image = pygame.image.load(img_file)
-        self.image = pygame.transform.scale(self.image, (100, 100))
-       
-        self.rect = self.image.get_rect()
-        self.rect.topleft = (x, y)
-        
-        
-    def move_right(self):
-        '''
-        moves the player right by one
-        args: none
-        returns: none
-        '''
-        self.x += 1 
-        
-    def move_left(self):
-        '''
-        mooves the player left by one
-        args: none
-        returns: none
-        '''
-        self.x -= 1
-        
-    def move_up(self):
-        '''
-        moves the player up by one
-        args: none
-        returns: none
-        '''
-        self.y += 1
-    def move_down(self):
-        '''
-        moves the player down by one
-        args: none
-        returns: none
-        '''
-        self.y -= 1
-    def score_up(self):
-        '''
-        increases the player score 
-        args: none
-        returns: player score
-        '''
-        self.score += 100
-        return self.score 
+        # self.img = pygame.image.load(img)
+
+    def draw(self, screen):
+        x = self.col * self.TILE_SIZE + self.TILE_SIZE // 4
+        y = self.row * self.TILE_SIZE + self.TILE_SIZE // 4
+        pygame.draw.rect(screen, "blue", (x, y, self.TILE_SIZE // 2, self.TILE_SIZE // 2))
+
+    def move(self, dx, dy):
+        new_row = self.row + dy
+        new_col = self.col + dx
+        if self.maze.is_path(new_row, new_col):  # Check if new position is a path
+            self.row = new_row
+            self.col = new_col
+    def has_reached_exit(self):
+        return (self.row, self.col) == self.maze.exit
+    
