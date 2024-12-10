@@ -12,7 +12,7 @@ Matthew Simmons
 
 ## Project Description
 
-A little octopus guy will make his way around a maze/jail collecting flowers for his wife. After he has collected all the flowers he will have to escape the maze without being cought by the warden of the jail who is a shark. After he escapes the maze he will be greeted by his wife and a you win screen. 
+A little octopus guy will make his way around a maze/jail collecting flowers for his wife. He can leave the maze at any time. After he escapes the maze he will be greeted by his wife and a you win screen as well as the score, and highscore. 
 
 ***    
 
@@ -38,7 +38,17 @@ A little octopus guy will make his way around a maze/jail collecting flowers for
 
 ### Classes
 
-- << You should have a list of each of your classes with a description >>
+- Controller:
+    Creates the controller object that handles all the required actions for the game
+
+- Flower:
+    Creates a flower object that is used to increase the players score
+
+- Maze:
+    Creates a Maze object which the player navigates and eventuyally escapes from. 
+
+- Octopus: 
+    Creates the player character/ octopus which is moved around the maze. 
 
 ## ATP
 
@@ -75,20 +85,12 @@ Description: Verify that the player can pick up the flowers around the game map
 3. Verify that the flower dissapears
 Expected Outcome: The player will move into the same position as the flower and the flower will disappear
 
-Test Case 5: Flower Count
+Test Case 5: Score
 Description: Verify that when a flower is picked up the flower count is increased by one
 1. Start the game
 2. Move the player into a flower
-3. Verify that the flower count increased by one
-Expected Outcome: Flower count will increase by one
-
-Test Case 6: Game over condition
-Description: Verify that if the timer runs out the game ends
-1. Start the game
-2. Wait for the timer to run out
-3. Verify that the game over screen appears
-4. Verify that the game returns to the menu
-Expected Outcome: The game should display a game over message and return to the main menu
+3. Verify that the Score increased by one-hundred
+Expected Outcome: Score will increase by one-hundred
 
 Test Case 7: Win condition
 Description: Verify that if the Plaer escapes the maze the game ends and a you win screen is displayed
@@ -108,10 +110,3 @@ Description: verify that the high score is displayed everytime the game ends, an
 6. Move the player to the exit of the maze and exit, while collecting as many flowers as possible
 7. Verify that the game ends and the score acheived is displayed along with the new high score
 Expected Outcome: The score and high score are displayed and change when necessary
-
-Test Case 9: Menu Navigation
-Description: Test the navigation through the main menu
-1. Start the game
-2. Navigate through the menu (start game, quit)
-3. Verify that each option is selectable and leads to the expected action
-Expected Outcome: The main menu allows the player to navigate through all the options and select them
